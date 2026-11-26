@@ -1,0 +1,5 @@
+season,expected_dry_days,expected_longest_spell,probability_7_days,probability_14_days,probability_21_days
+Northeast Monsoon,37.3111,13.5841,0.9601,0.4268,0.1081
+First Inter-monsoon,19.3325,6.2618,0.3863,0.0172,0.0007
+Southwest Monsoon,3.3076,1.8605,0.0054,0.0,0.0
+Second Inter-monsoon,9.2897,4.1542,0.1346,0.0022,0.0

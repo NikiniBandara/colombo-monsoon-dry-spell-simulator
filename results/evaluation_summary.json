@@ -1,0 +1,8 @@
+{
+    "testing_start": "2019-01-01",
+    "testing_end": "2025-12-31",
+    "markov_brier_score": 0.11258650269870783,
+    "baseline_brier_score": 0.1378853562895327,
+    "brier_skill_score": 0.1834774501920432,
+    "validation_simulations": 1000
+}

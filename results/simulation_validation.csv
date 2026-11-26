@@ -1,0 +1,5 @@
+,Actual,Simulated Mean,Lower 2.5%,Upper 97.5%,Within Simulated Range
+total_dry_days,634.0,665.768,601.95,730.025,True
+number_of_dry_spells,202.0,185.961,166.0,208.0,True
+longest_dry_spell,28.0,24.624,16.0,39.0,True
+average_dry_spell,3.1386138613861387,3.5895719129104577,3.164094727368184,4.108587027914614,False
