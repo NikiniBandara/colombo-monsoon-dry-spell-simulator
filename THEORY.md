@@ -127,11 +127,26 @@ The saved notebook reference uses **2026-01-01**, **90 days**, **10,000 replicat
 
 Phase 8C also checked seeded repeatability, one-day and 1/366-day threshold boundaries, leap years and year changes, always-wet and always-dry limiting cases, histogram frequency and risk-count conservation, confidence-interval bounds, and pause/resume reproducibility. Actual Chrome interaction was checked through a temporary static server; direct `file://` opening was not verified in that browser environment. A consistency check is not proof that future rainfall follows this model.
 
+The notebook's X2 dynamic program independently computes the exact probability of a dry spell under the fitted matrices. For the 90-day reference scenario with a 7-day threshold, it gives **0.970421256645**; the 10,000-run Monte Carlo estimate is **0.9712**. It also checks manually calculable cases and compares exact and simulated risks for 15 existing scenarios. A separate eight-seed experiment compares measured Monte Carlo RMSE with the theoretical $N^{-1/2}$ rate; see [the convergence graph](figures/monte_carlo_convergence.png).
+
+## Controlled sensitivity analysis
+
+The notebook's X5 study changes one input at a time, with **10,000 runs and seed 42** for each setting. It reuses the existing seasonal, spell-duration and reference experiments where possible. The [full results table](results/sensitivity_analysis.csv) records the configuration, event count, risk and 95% Wilson interval for every setting. The [sensitivity graph](figures/sensitivity_analysis.png) shows the same intervals.
+
+| Changed input | Controlled comparison | Observed dry-spell risks |
+|---|---|---|
+| Simulation horizon | Jan 1 start, 7+ days, previous day wet | 30/60/90/120 days: **76.83% / 96.01% / 97.12% / 97.88%** |
+| Starting season | 60 days, 7+ days, previous day wet | Jan/Mar/May/Oct starts: **96.01% / 38.63% / 0.54% / 13.46%** |
+| Minimum spell duration | Jan 1 start, 90 days, previous day wet | 7+/14+/21+ days: **97.12% / 44.60% / 11.41%** |
+| Previous-day state | Jan 1 start, 90 days, 7+ days | Wet/Dry: **97.12% / 97.46%** |
+
+Within these selected settings, starting date and required spell length make the largest changes. A longer window also raises the chance of an event. The previous-day state produces a smaller **0.34 percentage point** difference here; its two Wilson intervals overlap, so these separate intervals alone do not establish a clear difference. A 60-day window may cross a season boundary, and the destination day's matrix is used throughout. The intervals describe simulation sampling error under the fitted model, not uncertainty in its historical estimates or future climate.
+
 ## Assumptions, complexity and limitations
 
 Each replication uses $T$ state draws and constant work per day, so simulation time is $O(NT)$. The browser's histogram uses $O(T)$ counts, its calendar probability array uses $O(T)$ values, and its rolling chart holds at most 12 sequences of $T$ states.
 
-The first-order model can miss longer memory; probabilities are fixed within each season and across years. The ERA5 grid cell is not a Colombo station measurement. Rainfall is reduced to occurrence below/above 1 mm, so amounts and atmospheric causes are absent. The application is a historical-risk scenario simulator, not an operational weather forecasting service. Higher-order models, rainfall-intensity models, climate-change sensitivity studies and analytic dynamic-programming checks are possible future work, not implemented features.
+The first-order model can miss longer memory; probabilities are fixed within each season and across years. The ERA5 grid cell is not a Colombo station measurement. Rainfall is reduced to occurrence below/above 1 mm, so amounts and atmospheric causes are absent. The application is a historical-risk scenario simulator, not an operational weather forecasting service. Higher-order models, rainfall-intensity models and changing-climate studies remain future work.
 
 ## References
 
