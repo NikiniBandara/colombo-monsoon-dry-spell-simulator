@@ -16,7 +16,7 @@ The first five entries are a scientific foundation for rainfall occurrence model
 
 7. Open-Meteo, [“Licence”](https://open-meteo.com/en/license). Provider's **CC BY 4.0** permission and attribution requirements for API data.
 
-8. Copernicus Climate Change Service, [“ERA5 hourly data on single levels from 1940 to present”](https://cds.climate.copernicus.eu/datasets/reanalysis-era5-single-levels?tab=overview). Original product page for the ERA5 reanalysis underlying the Open-Meteo request.
+8. Copernicus Climate Change Service, [“ERA5 hourly data on single levels from 1940 to present”](https://cds.climate.copernicus.eu/datasets/reanalysis-era5-single-levels?tab=overview), [doi:10.24381/cds.adbb2d47](https://doi.org/10.24381/cds.adbb2d47). Original product record for the ERA5 reanalysis underlying the Open-Meteo request; the project's CSV was obtained through Open-Meteo, not downloaded directly from this product page.
 
 9. European Union / ECMWF, [“Licence to use Copernicus Products”](https://cds.climate.copernicus.eu/licences/licence-to-use-copernicus-products). Redistribution and attribution conditions for Copernicus information.
 

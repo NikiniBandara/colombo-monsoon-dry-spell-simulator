@@ -108,7 +108,9 @@ This interval measures **Monte Carlo sampling uncertainty conditional on the fit
 
 ## Calibration and empirical validation
 
-The source is daily ERA5 precipitation for **1991–2025** delivered through Open-Meteo; its location and licence are detailed in [data/README.md](data/README.md). The model is trained through 2018 and tested on the untouched later period **2019-01-01 through 2025-12-31**. The seasonal baseline predicts each season's training-set dry-day frequency without conditioning on the previous day.
+The source is daily ERA5 precipitation for **1991–2025** delivered through Open-Meteo; its requested location, returned grid cell, [CC BY 4.0 provider terms](https://open-meteo.com/en/license) and [Copernicus attribution terms](https://cds.climate.copernicus.eu/licences/licence-to-use-copernicus-products) are detailed in [data/README.md](data/README.md). Its **12,784** daily values are complete and nonnegative. The cleaned values match the source after renaming columns and parsing dates. The model is trained through 2018 and tested on the later period **2019-01-01 through 2025-12-31**. The original source retrieval date is not recorded.
+
+The **10,227** training rows end on 2018-12-31. The notebook computes next-day states and destination-day seasons *after* selecting those rows, giving **10,226** training transitions. An independent count-based recalculation matches every saved seasonal matrix entry exactly. The baseline is the training-only mean dry-day rate for each season, with no test-period counts used to fit it. The **2,557** test rows are disjoint from the training rows. Earlier exploratory plots and summaries use the full record, however, so the test years were visible during exploration; the audit establishes no fitted-parameter leakage, not fully blind model selection. Daily evaluation uses the observed previous-day state to make a conditional one-day prediction; it does not update model parameters using test outcomes. Since that previous state is formed within the test subset, the first day is dropped. Thus daily Brier scoring covers **2,556** dates from **2019-01-02 to 2025-12-31**. The saved summary's 2019-01-01 start denotes the full holdout period, not the first scored date.
 
 For held-out observed state $y_i\in\{0,1\}$ and predicted dry probability $q_i$, the Brier score and Brier Skill Score are
 
@@ -117,7 +119,9 @@ $$
 \mathrm{BSS}=1-\frac{\mathrm{BS}_{\rm Markov}}{\mathrm{BS}_{\rm baseline}}.
 $$
 
-Lower Brier score is better; BSS above zero improves on the baseline. The saved [evaluation summary](results/evaluation_summary.json) gives **0.1125865** (Markov), **0.1378854** (baseline), and **0.1834775** BSS, or about **18.35%** relative improvement. The notebook's [calibration plot](figures/calibration.png) groups held-out probabilities and compares mean predicted probabilities with observed dry frequencies. This is empirical evaluation, distinct from checking the simulator code.
+Lower Brier score is better; BSS above zero improves on the baseline. The saved [evaluation summary](results/evaluation_summary.json) gives **0.1125865** (Markov), **0.1378854** (baseline), and **0.1834775** BSS, or about **18.35%** relative improvement. The notebook's [calibration plot](figures/calibration.png) groups held-out probabilities and compares mean predicted probabilities with observed dry frequencies. The curve is not perfectly calibrated. This is empirical evaluation, distinct from checking the simulator code.
+
+The saved [seasonal evaluation](results/seasonal_model_evaluation.csv) has positive Brier Skill Scores for all four seasons: **0.2080** Northeast, **0.2180** First Inter-monsoon, **0.0928** Southwest and **0.1490** Second Inter-monsoon. In the separate **1,000-path** [simulation validation](results/simulation_validation.csv), three of four observed statistics fall inside their simulated 2.5%–97.5% ranges. Average dry-spell length does not: **3.139** observed days, below the simulated **3.164–4.109** range. The [seasonal dry-frequency comparison](results/seasonal_simulation_validation.csv) shows **10.77%** observed versus **15.38%** simulated in Second Inter-monsoon. These mismatches remain visible; a positive Brier Skill Score does not mean every spell statistic is reproduced.
 
 ![Held-out probability calibration plot saved by the notebook](figures/calibration.png)
 
