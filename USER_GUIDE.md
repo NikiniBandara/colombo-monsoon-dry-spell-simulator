@@ -1,6 +1,6 @@
 # User guide: Colombo Monsoon Dry Spell Simulator
 
-The simulator is one browser page. Download the repository and double-click [`docs/index.html`](docs/index.html). It runs without a server or network connection. The [intended GitHub Pages address](https://NikiniBandara.github.io/colombo-monsoon-dry-spell-simulator/) has not yet been verified as deployed. A current Chrome, Edge or Firefox browser is suitable.
+The simulator is one browser page. Use the [live GitHub Pages demo](https://NikiniBandara.github.io/colombo-monsoon-dry-spell-simulator/) or download the repository and double-click [`docs/index.html`](docs/index.html). The hosted page returned HTTP 200 during this audit. The downloaded page is designed to run without a server or network connection, but direct `file://` opening has not been independently verified. A current Chrome, Edge or Firefox browser is suitable.
 
 ![Pastel dashboard after the completed reference simulation](figures/demo.png)
 
